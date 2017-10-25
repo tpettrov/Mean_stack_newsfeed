@@ -13,10 +13,12 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng serve"
+    "postinstall": "ng build"
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "^1.4.9",
+    "@angular/compiler-cli": "^4.4.6",
     "@angular/animations": "^4.2.4",
     "@angular/common": "^4.2.4",
     "@angular/compiler": "^4.2.4",

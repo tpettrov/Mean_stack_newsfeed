@@ -10,7 +10,7 @@ export class ArticleService {
   constructor(private http: Http) { }
 
   // get("/api/contacts")
-  getContacts(): Promise<void | Article[]> {
+  getArticles(): Promise<void | Article[]> {
     return this.http.get(this.newsUrl)
       .toPromise()
       .then(response => response.json() as Article[])
@@ -18,8 +18,8 @@ export class ArticleService {
   }
 
   // post("/api/contacts")
-  createContact(newNew: Article): Promise<void | Article> {
-    return this.http.post(this.newsUrl, newNew)
+  createArticle(newArticle: Article): Promise<void | Article> {
+    return this.http.post(this.newsUrl, newArticle)
       .toPromise()
       .then(response => response.json() as Article)
       .catch(this.handleError);

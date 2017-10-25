@@ -14,8 +14,9 @@ app.use(express.static(distDir));
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
+var dbConnectionString = process.env.MONGODB_URI || "mongodb://development:development@ds133465.mlab.com:33465/meanstacknewsfeedtest";
 // Connect to the database before starting the application server.
-mongodb.MongoClient.connect(process.env.MONGODB_URI, function (err, database) {
+mongodb.MongoClient.connect(dbConnectionString, function (err, database) {
   if (err) {
     console.log(err);
     process.exit(1);

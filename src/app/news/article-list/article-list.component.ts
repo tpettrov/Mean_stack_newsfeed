@@ -12,15 +12,15 @@ import { ArticleService } from '../article.service';
 })
 export class ArticleListComponent implements OnInit {
 
-  contacts: Article[];
+  articles: Article[];
   selectedContact: Article;
-  constructor(private newService: ArticleService) { }
+  constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
-    this.newService
-      .getContacts()
+    this.articleService
+      .getArticles()
       .then((articles: Article[]) => {
-        this.contacts = articles.map((article) => {
+        this.articles = articles.map((article) => {
           return article;
         });
       });

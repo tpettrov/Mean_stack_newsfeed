@@ -1,12 +1,14 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
+var cors = require('cors');
 var ObjectID = mongodb.ObjectID;
 
 var NEWS_COLLECTION = "news";
 
 var app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));

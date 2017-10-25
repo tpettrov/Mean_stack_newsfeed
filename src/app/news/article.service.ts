@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { New } from './article';
+import { Article } from './article';
 import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -10,18 +10,18 @@ export class NewService {
   constructor(private http: Http) { }
 
   // get("/api/contacts")
-  getContacts(): Promise<void | New[]> {
+  getContacts(): Promise<void | Article[]> {
     return this.http.get(this.newsUrl)
       .toPromise()
-      .then(response => response.json() as New[])
+      .then(response => response.json() as Article[])
       .catch(this.handleError);
   }
 
   // post("/api/contacts")
-  createContact(newNew: New): Promise<void | New> {
+  createContact(newNew: Article): Promise<void | Article> {
     return this.http.post(this.newsUrl, newNew)
       .toPromise()
-      .then(response => response.json() as New)
+      .then(response => response.json() as Article)
       .catch(this.handleError);
   }
 

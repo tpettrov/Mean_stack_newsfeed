@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
-import { NewService } from '../article.service';
+import { ArticleService } from '../article.service';
 
 
 
@@ -8,13 +8,13 @@ import { NewService } from '../article.service';
   selector: 'app-article-list',
   templateUrl: './article-list.component.html',
   styleUrls: ['./article-list.component.css'],
-  providers: [NewService]
+  providers: [ArticleService]
 })
 export class ArticleListComponent implements OnInit {
 
   contacts: Article[];
   selectedContact: Article;
-  constructor(private newService: NewService) { }
+  constructor(private newService: ArticleService) { }
 
   ngOnInit() {
     this.newService

@@ -4,7 +4,7 @@ import { Http, Response } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
-export class NewService {
+export class ArticleService {
 
   private newsUrl = '/api/news';
   constructor(private http: Http) { }

@@ -8,6 +8,9 @@ var NEWS_COLLECTION = "news";
 var app = express();
 app.use(bodyParser.json());
 
+var distDir = __dirname + "/dist/";
+app.use(express.static(distDir));
+
 // Create a database variable outside of the database connection callback to reuse the connection pool in your app.
 var db;
 
@@ -74,6 +77,13 @@ app.post("/api/news", function(req, res) {
  */
 
 app.get("/api/news/:id", function(req, res) {
+  db.collection(NEWS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to get this new");
+    } else {
+      res.status(200).json(doc);
+    }
+  });
 });
 
 app.put("/api/news/:id", function(req, res) {

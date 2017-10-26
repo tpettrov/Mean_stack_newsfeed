@@ -3,12 +3,13 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var cors = require('cors');
 var ObjectID = mongodb.ObjectID;
-
 var NEWS_COLLECTION = "news";
+var USERS_COLLECTION = 'users';
 
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
 
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
@@ -42,10 +43,7 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-/*  "/api/contacts"
- *    GET: finds all contacts
- *    POST: creates a new contact
- */
+// api
 
 app.get("/api/news", function(req, res) {
   db.collection(NEWS_COLLECTION).find({}).toArray(function(err, docs) {
@@ -73,11 +71,6 @@ app.post("/api/news", function(req, res) {
   });
 });
 
-/*  "/api/contacts/:id"
- *    GET: find contact by id
- *    PUT: update contact by id
- *    DELETE: deletes contact by id
- */
 
 app.get("/api/news/:id", function(req, res) {
   db.collection(NEWS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
@@ -89,8 +82,20 @@ app.get("/api/news/:id", function(req, res) {
   });
 });
 
-app.put("/api/news/:id", function(req, res) {
-});
+//auth
 
-/*app.delete("/api/contacts/:id", function(req, res) {
-});*/
+app.post("/auth/signup", function(req, res) {
+  var newUser = req.body;
+
+  if (!req.body.name || !req.body.email || !req.body.password) {
+    handleError(res, "Invalid user input", "Must provide a name, email, password", 400);
+  }
+
+  db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+    if (err) {
+      handleError(res, err.message, "Failed to create new User :D.");
+    } else {
+      res.status(201).json({success: true});
+    }
+  });
+});

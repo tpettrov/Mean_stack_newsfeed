@@ -18,7 +18,7 @@ module.exports = {
     newUser.salt = salt;
     newUser.password = hashedPassword;
 
-    db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+    db.collection(USERS_COLLECTION).insertOne(newUser, function (err, doc) {
       if (err) {
         handleError(res, err.message, "Failed to create new User :D.");
       } else {

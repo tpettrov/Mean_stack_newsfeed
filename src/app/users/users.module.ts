@@ -4,12 +4,13 @@ import {RouterModule} from "@angular/router";
 import {RegisterComponent} from "./register/register.component";
 import {UserService} from "./user.service";
 import {FormsModule} from "@angular/forms";
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
     CommonModule, RouterModule, FormsModule
   ],
-  declarations: [RegisterComponent],
+  declarations: [RegisterComponent, LoginComponent],
   exports: [RegisterComponent],
   providers: [UserService]
 })

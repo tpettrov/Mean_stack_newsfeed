@@ -1,41 +1,23 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var mongodb = require("mongodb");
 var cors = require('cors');
 var ObjectID = mongodb.ObjectID;
 const NEWS_COLLECTION = "news";
-const USERS_COLLECTION = 'users';
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
-
-
+require('./srv/routes/routes')(app);
+var mongoUtil = require('./srv/database/database');
 
 var distDir = __dirname + "/dist/";
 app.use(express.static(distDir));
 
-// Create a database variable outside of the database connection callback to reuse the connection pool in your app.
-var db;
-
-var dbConnectionString = process.env.MONGODB_URI || "mongodb://development:development@ds133465.mlab.com:33465/meanstacknewsfeedtest";
-// Connect to the database before starting the application server.
-mongodb.MongoClient.connect(dbConnectionString, function (err, database) {
-  if (err) {
-    console.log(err);
-    process.exit(1);
-  }
-
-  // Save database object from the callback for reuse.
-  db = database;
-  console.log("Database connection ready");
-
-  // Initialize the app.
-  var server = app.listen(process.env.PORT || 8080, function () {
-    var port = server.address().port;
+mongoUtil.connectToDatabase(function(err){
+    const server = app.listen(process.env.PORT || 8080, function () {
+    const port = server.address().port;
     console.log("App now running on port", port);
-  });
 });
-
+});
 
 // Generic error handler used by all endpoints.
 function handleError(res, reason, message, code) {
@@ -43,7 +25,6 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-// api
 
 app.get("/api/news", function(req, res) {
   db.collection(NEWS_COLLECTION).find({}).toArray(function(err, docs) {
@@ -82,26 +63,5 @@ app.get("/api/news/:id", function(req, res) {
   });
 });
 
-//auth
 
 
-app.post("/auth/signup", function(req, res) {
-  var newUser = req.body;
-  // Add validations and hashedPassword!
-
- /* let salt = encryption.generateSalt();
-  let hashedPassword = encryption.generateHashedPassword(salt, newUser.password);*/
-
-
-  if (!req.body.name || !req.body.email || !req.body.password) {
-    handleError(res, "Invalid user input", "Must provide a name, email, password", 400);
-  }
-
-  db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new User :D.");
-    } else {
-      res.status(201).json({success: true});
-    }
-  });
-});

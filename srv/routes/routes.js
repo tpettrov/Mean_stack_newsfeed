@@ -1,5 +1,5 @@
 const controllers = require('../../srv/controllers');
-const auth = require('./routes');
+
 
 module.exports = (app) => {
 

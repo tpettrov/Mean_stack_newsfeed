@@ -1,17 +1,15 @@
 const encryption = require('../tools/encryption');
-const db = require('../database/database');
+const mongoUtil = require('../database/database');
+const USERS_COLLECTION = 'users';
 
 module.exports = {
 
   signup: (req, res) => {
-    var newUser = req.body;
+    let newUser = req.body;
     // Add validations!
-
+    let db = mongoUtil.getDb();
     let salt = encryption.generateSalt();
     let hashedPassword = encryption.generateHashedPassword(salt, newUser.password);
-
-
-    console.log(newUser);
 
     if (!req.body.name || !req.body.email || !req.body.password) {
       handleError(res, "Invalid user input", "Must provide a name, email, password", 400);

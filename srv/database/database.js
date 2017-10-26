@@ -1,16 +1,19 @@
-var mongodb = require("mongodb");
-
+const mongoClient = require("mongodb").MongoClient;
 const dbConnectionString = process.env.MONGODB_URI || "mongodb://development:development@ds133465.mlab.com:33465/meanstacknewsfeedtest";
-// Connect to the database before starting the application server.
-  const database = mongodb.MongoClient.connect(dbConnectionString, function (err, database) {
-    if (err) {
-      console.log(err);
-      process.exit(1);
-    }
-    console.log('MongoDB ready!')
-    return database;
+let db;
 
+module.exports = {
 
-  });
+  connectToDatabase: function(callback) {
+    mongoClient.connect(dbConnectionString, function(err, database){
+      db = database;
+      console.log('MongoDB ready!');
+      return callback(err);
+    });
+  },
 
-module.exports = database;
+  getDb: function(){
+    return db;
+  }
+
+}

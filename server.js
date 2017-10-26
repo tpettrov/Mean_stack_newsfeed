@@ -3,12 +3,12 @@ var bodyParser = require("body-parser");
 var mongodb = require("mongodb");
 var cors = require('cors');
 var ObjectID = mongodb.ObjectID;
-var NEWS_COLLECTION = "news";
-var USERS_COLLECTION = 'users';
-
+const NEWS_COLLECTION = "news";
+const USERS_COLLECTION = 'users';
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
 
 
 var distDir = __dirname + "/dist/";
@@ -84,8 +84,14 @@ app.get("/api/news/:id", function(req, res) {
 
 //auth
 
+
 app.post("/auth/signup", function(req, res) {
   var newUser = req.body;
+  // Add validations and hashedPassword!
+
+ /* let salt = encryption.generateSalt();
+  let hashedPassword = encryption.generateHashedPassword(salt, newUser.password);*/
+
 
   if (!req.body.name || !req.body.email || !req.body.password) {
     handleError(res, "Invalid user input", "Must provide a name, email, password", 400);

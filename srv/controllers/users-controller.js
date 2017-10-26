@@ -1,30 +1,29 @@
-const encryption = require('../tools/encryption')
-const User = require('mongoose').model('User')
+const encryption = require('../tools/encryption');
+const db = require('../database/database');
 
 module.exports = {
 
   signup: (req, res) => {
-    let reqUser = req.body;
+    var newUser = req.body;
     // Add validations!
 
     let salt = encryption.generateSalt();
-    let hashedPassword = encryption.generateHashedPassword(salt, reqUser.password);
+    let hashedPassword = encryption.generateHashedPassword(salt, newUser.password);
 
-    User.create({
-      name: reqUser.name,
-      email: reqUser.email,
-      salt: salt,
-      hashedPass: hashedPassword
-    }).then(user => {
-      req.logIn(user, (err, user) => {
-        if (err) {
-          res.locals.globalError = err;
-          res.render('users/register', user)
-        }
 
+    console.log(newUser);
+
+    if (!req.body.name || !req.body.email || !req.body.password) {
+      handleError(res, "Invalid user input", "Must provide a name, email, password", 400);
+    }
+
+    db.collection(USERS_COLLECTION).insertOne(newUser, function(err, doc) {
+      if (err) {
+        handleError(res, err.message, "Failed to create new User :D.");
+      } else {
         res.status(201).json({success: true});
-      })
-    })
+      }
+    });
   },
 
 };

@@ -1,5 +1,5 @@
 const controllers = require('../../srv/controllers');
-const auth = require('./routes')
+const auth = require('./routes');
 
 module.exports = (app) => {
 
@@ -7,7 +7,7 @@ module.exports = (app) => {
 
   app.all('*', (req, res) => {
     res.status(404)
-    res.send('404 Not Found!')
+    res.send('Go play somewhere else!');
     res.end()
   })
 }

@@ -1,7 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require('cors');
-var ObjectID = mongodb.ObjectID;
 const NEWS_COLLECTION = "news";
 var app = express();
 app.use(bodyParser.json());

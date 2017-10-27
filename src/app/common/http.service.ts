@@ -3,7 +3,7 @@ import {Http, RequestOptions, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {AuthService} from "./auth.service"
 
-const baseUrl = 'http://localhost:8080/';
+const baseUrl = 'https://meanstacknewsfeed.herokuapp.com/';
 const getMethod = 'get';
 const postMethod = 'post';
 

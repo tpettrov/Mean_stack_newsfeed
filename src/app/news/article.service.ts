@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class ArticleService {
 
-  private newsUrl = 'https://meanstacknewsfeed.herokuapp.com/api/news';
+  private newsUrl = '/api/news';
   constructor(private http: Http) { }
   getArticles(): Promise<void | Article[]> {
     return this.http.get(this.newsUrl)

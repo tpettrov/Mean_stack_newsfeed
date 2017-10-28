@@ -1,7 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require('cors');
-const NEWS_COLLECTION = "news";
 var app = express();
 app.use(bodyParser.json());
 app.use(cors());
@@ -23,17 +22,6 @@ function handleError(res, reason, message, code) {
   console.log("ERROR: " + reason);
   res.status(code || 500).json({"error": message});
 }
-
-
-app.get("/api/news", function(req, res) {
-  db.collection(NEWS_COLLECTION).find({}).toArray(function(err, docs) {
-    if (err) {
-      handleError(res, err.message, "Failed to get news.");
-    } else {
-      res.status(200).json(docs);
-    }
-  });
-});
 
 app.post("/api/news", function(req, res) {
   var newNew = req.body;

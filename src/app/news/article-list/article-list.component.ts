@@ -19,12 +19,12 @@ export class ArticleListComponent implements OnInit {
   ngOnInit() {
     this.articleService
       .getArticles()
-      .then((articles: Article[]) => {
-        this.articles = articles.map((article) => {
-          return article;
+      .subscribe((res) => {
+        if (!res.success) {
+          console.log(res);
+        }
+         this.articles = res.articles;
         });
-      });
-
   }
 
 }

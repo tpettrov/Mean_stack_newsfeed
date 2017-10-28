@@ -1,0 +1,12 @@
+nav {
+  border-color: black;
+  background-color: grey;
+  opacity: 0.8;
+
+}
+nav  a {
+  padding: 10px;
+}
+nav div {
+  margin-top: 10px;
+}

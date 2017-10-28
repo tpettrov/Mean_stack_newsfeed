@@ -1,3 +1,4 @@
+<div class="col-md-4 col-md-offset-4">
 <h1>Create New Article</h1>
 <form #articleCreateForm="ngForm" (submit)="createArticle()">
   <div class="form-group">
@@ -32,3 +33,4 @@
   <button type="submit" class="btn btn-success" [disabled]="!articleCreateForm.form.valid" >Add article</button>
 
 </form>
+</div>

@@ -3,7 +3,7 @@ const mongoUtil = require('../database/database');
 
 module.exports = {
   getArticles: (req, res) => {
-    mongoUtil.getDb().collection(ARTICLES_COLLECTION).find({}).toArray(function (err, docs) {
+    mongoUtil.getDb().collection(ARTICLES_COLLECTION).find({}).sort({_id:-1}).limit(5).toArray(function (err, docs) {
       if (err) {
         handleError(res, err.message, "Failed to get news.");
       } else {

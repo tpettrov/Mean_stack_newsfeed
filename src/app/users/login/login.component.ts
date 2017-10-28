@@ -23,7 +23,7 @@ export class LoginComponent {
         } else {
           this.auth.authenticateUser(res.token);
           console.log(res.user);
-          this.auth.saveUser(res.user.name);
+          this.auth.saveUser(res.user);
           console.log('Successfull login');
           this.router.navigateByUrl('');
         }

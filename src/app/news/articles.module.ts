@@ -5,12 +5,13 @@ import {ArticleListComponent} from "./article-list/article-list.component";
 import {ArticleService} from "./article.service";
 import { ArticleCreateComponent } from './article-create/article-create.component';
 import {FormsModule} from "@angular/forms";
+import {ArticleDetailsComponent} from "./article-details/article-details.component";
 
 @NgModule({
   imports: [
     CommonModule, RouterModule, FormsModule
   ],
-  declarations: [ArticleListComponent, ArticleCreateComponent],
+  declarations: [ArticleListComponent, ArticleCreateComponent, ArticleDetailsComponent],
   exports: [ArticleListComponent],
   providers: [ArticleService]
 })

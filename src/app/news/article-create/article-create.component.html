@@ -16,14 +16,14 @@
 
   <div class="form-group">
     <label for="content">Content</label>
-    <input
-      type="textarea"
+    <textarea
+      rows="10"
       class="form-control"
       id="content"
       name="content"
       [(ngModel)]="article.content"
       #content = "ngModel"
-      required>
+      required></textarea>
     <span [hidden]="content.valid || content.pristine">
       Content is required!
     </span>

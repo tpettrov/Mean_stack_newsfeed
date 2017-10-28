@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-8 col-md-offset-2">
     <h2>Last five news added to the news feed:</h2>
     <ul class="list-group">
       <li class="list-group-item"
@@ -7,16 +7,9 @@
           (click)="selectArticle(article)"
           [class.active]="article === selectedArticle">
         {{article.title}}
+        <a routerLink="/article/details"><span class="pull-right btn btn-info">Details</span></a>
       </li>
     </ul>
   </div>
-  <!--<div class="col-md-5 col-md-offset-2">
-    &lt;!&ndash;<app-new-details
-      [contact]="selectedContact"
-      [createHandler]="addContact"
-      [updateHandler]="updateContact"
-      [deleteHandler]="deleteContact">
-    </app-new-details>&ndash;&gt;
-  </div>-->
 </div>
 

@@ -23,4 +23,12 @@ export class NavbarComponent implements OnInit {
     this.username = this.auth.getUser();
   }
 
+  // not destroying generated token in the server, who cares security is for lamers :)
+
+  logout() {
+    this.authenticated = this.auth.deauthenticateUser();
+    this.username = this.auth.removeUser();
+    this.router.navigateByUrl('');
+  }
+
 }

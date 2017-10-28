@@ -3,12 +3,13 @@ import {NgModule} from '@angular/core';
 import {ArticleListComponent} from "./news/article-list/article-list.component";
 import {RegisterComponent} from "./users/register/register.component";
 import {LoginComponent} from "./users/login/login.component";
-
+import {ArticleCreateComponent} from './news/article-create/article-create.component'
 
 const routes: Routes = [
   {path: '', component: ArticleListComponent },
   {path: 'users/register', component: RegisterComponent },
-  {path: 'users/login', component: LoginComponent }
+  {path: 'users/login', component: LoginComponent },
+  {path: 'article/create', component: ArticleCreateComponent }
 ]
 @NgModule({
 

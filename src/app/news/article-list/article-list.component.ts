@@ -12,18 +12,19 @@ import { ArticleService } from '../article.service';
 })
 export class ArticleListComponent implements OnInit {
 
-  articles: Article[];
-  selectedContact: Article;
   constructor(private articleService: ArticleService) { }
+
+  articles: Article[];
+  selectedArticle: Article;
 
   ngOnInit() {
     this.articleService
       .getArticles()
       .subscribe((res) => {
         if (!res.success) {
-          console.log(res);
+          console.log(res.msg);
         }
-         this.articles = res.articles;
+         this.articles = res;
         });
   }
 

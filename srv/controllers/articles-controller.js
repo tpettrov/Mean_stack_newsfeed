@@ -11,11 +11,11 @@ module.exports = {
       }
     });
   },
-  postArticle: (req, res) => {
+  createArticle: (req, res) => {
 
     let newArticle = req.body;
 
-    mongoUtil.getDb().collection(ARTICLES_COLLECTION).insertOne({}).toArray(function (err, docs) {
+    mongoUtil.getDb().collection(ARTICLES_COLLECTION).insertOne(newArticle, function (err, docs) {
       if (err) {
         handleError(res, err.message, "Failed to get news.");
       } else {

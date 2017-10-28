@@ -1,3 +1,34 @@
-<p>
-  article-create works!
-</p>
+<h1>Create New Article</h1>
+<form #articleCreateForm="ngForm" (submit)="createArticle()">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+      class="form-control"
+      id="title"
+      name="title"
+      [(ngModel)]="article.title"
+      #title = "ngModel"
+      required>
+    <span [hidden]="title.valid || title.pristine">
+      Title is required!
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="content">Content</label>
+    <input
+      type="textarea"
+      class="form-control"
+      id="content"
+      name="content"
+      [(ngModel)]="article.content"
+      #content = "ngModel"
+      required>
+    <span [hidden]="content.valid || content.pristine">
+      Content is required!
+    </span>
+  </div>
+
+  <button type="submit" class="btn btn-success" [disabled]="!articleCreateForm.form.valid" >Add article</button>
+
+</form>

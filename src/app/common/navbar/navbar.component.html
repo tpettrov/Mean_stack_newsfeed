@@ -1,12 +1,11 @@
 <nav class="navbar navbar-fixed">
-
+  <a routerLink="/">Home</a>
   <div *ngIf="authenticated">
     <a routerLink="/article/create">Create article</a>
     Welcome, {{username}}
     <a href="javascript:void(0)" (click)="logout()">Logout</a>
   </div>
   <div *ngIf="!authenticated">
-    <a routerLink="/">Home</a>
     <a routerLink="/users/register">Register</a>
     <a routerLink="/users/login">Login</a>
   </div>

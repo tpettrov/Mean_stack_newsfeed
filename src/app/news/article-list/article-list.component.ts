@@ -27,5 +27,8 @@ export class ArticleListComponent implements OnInit {
          this.articles = res;
         });
   }
+  selectArticle(article){
+    this.selectedArticle = article;
+  }
 
 }

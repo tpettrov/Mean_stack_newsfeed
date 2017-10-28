@@ -8,6 +8,7 @@
           [class.active]="article === selectedArticle">
         {{article.title}}
         <a routerLink="/article/details"><span class="pull-right btn btn-info">Details</span></a>
+        <div *ngIf = "article === selectedArticle">{{article.content}}</div>
       </li>
     </ul>
   </div>

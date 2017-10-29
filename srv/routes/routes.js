@@ -8,6 +8,7 @@ module.exports = (app) => {
 
   app.get('/api/articles',  controllers.articles.getArticles);
   app.post('/api/articles', authTest, controllers.articles.createArticle);
+  app.post('/api/articles/:articleId/addComment', authTest, controllers.articles.addComment);
 
   /*app.all('*', (req, res) => {
     res.status(404)

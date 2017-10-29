@@ -16,6 +16,11 @@ export class ArticleService {
     return this.httpService.post('api/articles', newArticle, true)
   }
 
+  addComment(articleId, newComment){
+    const commentData = {content: newComment};
+    return this.httpService.post(`api/articles/${articleId}/addComment`, commentData, true)
+  }
+
   /*private handleError (error: any) {
     const errMsg = (error.message) ? error.message :
       error.status ? `${error.status} - ${error.statusText}` : 'Server error';

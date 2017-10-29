@@ -22,5 +22,18 @@ module.exports = {
         res.status(200).json(docs);
       }
     });
+  },
+  addComment: (req, res) => {
+      const articleId = req.params.articleId;
+      const comment = req.body.content;
+
+      mongoUtil.getDb().collection(ARTICLES_COLLECTION).updateOne({_id: articleId},
+        comment, function (err,doc){
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(doc);
+      }
+      })
   }
 }

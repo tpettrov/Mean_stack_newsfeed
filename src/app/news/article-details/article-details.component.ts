@@ -18,16 +18,23 @@ export class ArticleDetailsComponent implements OnInit{
 
   article = this.sharedArticle.articleShared;
   newComment: string;
+  comments: Array<string>;
 
   ngOnInit(){
     if (isUndefined(this.article)) {
       this.router.navigateByUrl('/');
     }
+    this.comments = this.sharedArticle.articleShared.comments;
   }
 
   addComment(){
     this.articleService.addComment(this.article._id, this.newComment).subscribe((res) => {
-      console.log(res);
+      if (!res.success) {
+        console.log(res);
+      } else {
+        this.comments.push(this.newComment);
+        console.log('Добавен коментар');
+      }
     });
   }
 

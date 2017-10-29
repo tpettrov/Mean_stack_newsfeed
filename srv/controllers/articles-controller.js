@@ -1,5 +1,7 @@
 const ARTICLES_COLLECTION = "news";
 const mongoUtil = require('../database/database');
+let ObjectID = require('mongodb').ObjectID;
+
 
 module.exports = {
   getArticles: (req, res) => {
@@ -14,6 +16,7 @@ module.exports = {
   createArticle: (req, res) => {
 
     let newArticle = req.body;
+    newArticle.comments = new Array();
 
     mongoUtil.getDb().collection(ARTICLES_COLLECTION).insertOne(newArticle, function (err, docs) {
       if (err) {
@@ -27,12 +30,12 @@ module.exports = {
       const articleId = req.params.articleId;
       const comment = req.body.content;
 
-      mongoUtil.getDb().collection(ARTICLES_COLLECTION).updateOne({_id: articleId},
-        comment, function (err,doc){
+      mongoUtil.getDb().collection(ARTICLES_COLLECTION).updateOne({_id: new ObjectID(articleId)},
+        {$push: { "comments" : comment }}, function (err,doc){
       if (err) {
-        console.log(err);
+        console.log('Грешка');
       } else {
-        console.log(doc);
+        res.status(200).json({success: true});
       }
       })
   }

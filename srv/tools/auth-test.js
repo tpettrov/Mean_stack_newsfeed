@@ -20,8 +20,6 @@ module.exports = (req, res, next) => {
 
     const userId = decoded.sub
 
-    //skip user check at this stage
-
     db.getDb().collection(USERS_COLLECTION).findOne({_id: new ObjectID(userId)}, function (err, user) {
       if (err) {
         return res.status(401).end()

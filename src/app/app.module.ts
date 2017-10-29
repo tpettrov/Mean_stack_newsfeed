@@ -6,6 +6,7 @@ import {CommonElementsModule} from "./common/common-elements.module";
 import {RoutesModule} from "./routes.module";
 import {ArticlesModule} from "./news/articles.module";
 import {UsersModule} from "./users/users.module";
+import {FlashMessagesModule} from "angular2-flash-messages";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {UsersModule} from "./users/users.module";
     UsersModule,
     RoutesModule,
     ArticlesModule,
+    FlashMessagesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {User} from '../user';
 import {UserService} from "../user.service";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-register',
@@ -10,15 +11,17 @@ import {UserService} from "../user.service";
 })
 export class RegisterComponent {
 
-  constructor(private usersService: UserService, private router: Router) { }
+  constructor(private usersService: UserService, private router: Router, private flashMessage: FlashMessagesService) { }
   user: User = new User();
   register() {
     this.usersService.register(this.user)
-      .subscribe(res => {
+      .subscribe((res) => {
+      console.log(res);
         if (!res.success) {
-          console.log(res);
+          this.flashMessage.show(res.msg, { cssClass: 'alert-danger' });
+          console.log('kor');
         } else {
-          console.log('successful registration');
+          this.flashMessage.show('Successful registration!', { cssClass: 'alert-success' });
           this.router.navigateByUrl('users/login');
         }
       });

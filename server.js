@@ -23,32 +23,8 @@ function handleError(res, reason, message, code) {
   res.status(code || 500).json({"error": message});
 }
 
-app.post("/api/news", function(req, res) {
-  var newNew = req.body;
-
-  if (!req.body.name) {
-    handleError(res, "Invalid user input", "Must provide a name.", 400);
-  }
-
-  db.collection(NEWS_COLLECTION).insertOne(newNew, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to create new new :D.");
-    } else {
-      res.status(201).json(doc.ops[0]);
-    }
-  });
-});
 
 
-app.get("/api/news/:id", function(req, res) {
-  db.collection(NEWS_COLLECTION).findOne({ _id: new ObjectID(req.params.id) }, function(err, doc) {
-    if (err) {
-      handleError(res, err.message, "Failed to get this new");
-    } else {
-      res.status(200).json(doc);
-    }
-  });
-});
 
 
 

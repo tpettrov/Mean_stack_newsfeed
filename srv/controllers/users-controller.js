@@ -13,19 +13,31 @@ module.exports = {
     let hashedPassword = encryption.generateHashedPassword(salt, newUser.password);
 
     if (!req.body.name || !req.body.email || !req.body.password) {
-      handleError(res, "Invalid user input", "Must provide a name, email, password", 400);
+      res.status(500).json({success: false, msg: 'No name, email or password!'});
     }
 
     newUser.salt = salt;
     newUser.password = hashedPassword;
 
-    db.collection(USERS_COLLECTION).insertOne(newUser, function (err, doc) {
+    db.collection(USERS_COLLECTION).findOne({email: newUser.email}, function (err, doc) {
+
       if (err) {
-        handleError(res, err.message, "Failed to create new User :D.");
+        res.status(500).json({success: false, msg: 'Try again later!'});
+      } else if (doc) {
+        res.status(200).json({success: false, msg: 'User already registered!'});
       } else {
-        res.status(201).json({success: true});
+        db.collection(USERS_COLLECTION).insertOne(newUser, function (err, doc) {
+          if (err) {
+            res.status(500).json({success: false, msg: 'Unsuccessfull registration!'});
+          } else {
+            res.status(201).json({success: true});
+          }
+        });
+
       }
-    });
+
+    })
+
   },
 
   login: (req, res) => {
@@ -40,13 +52,18 @@ module.exports = {
 
     db.collection(USERS_COLLECTION).findOne({email: wannaBeUser.email}, function (err, doc) {
       if (doc === null) {
-        res.status(201).json({success: false, msg: 'Unvalid credentials!'});
+        res.status(401).json({success: false, msg: 'Unvalid credentials!'});
       } else {
         if (encryption.generateHashedPassword(doc.salt, wannaBeUser.password) === doc.password) {
           const token = jwt.sign({sub: doc._id}, 'extremelY private String Unreadable by third party or dummy guys1');
-          res.status(201).json({success: true, msg: 'Successful authentication on server!', token: token, user: doc.name});
+          res.status(200).json({
+            success: true,
+            msg: 'Successful authentication on server!',
+            token: token,
+            user: doc.name
+          });
         } else {
-          res.status(201).json({success: false, msg: 'Unvalid credentials!'});
+          res.status(401).json({success: false, msg: 'Unvalid credentials!'});
         }
       }
     });

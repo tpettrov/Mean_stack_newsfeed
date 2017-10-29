@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
-
+const db = require('../database/database');
+const USERS_COLLECTION = "users";
+let ObjectID = require('mongodb').ObjectID;
 
 module.exports = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -20,13 +22,14 @@ module.exports = (req, res, next) => {
 
     //skip user check at this stage
 
-    /*const user = usersData.findById(userId)
-    if (!user) {
-      return res.status(401).end()
-    }
+    db.getDb().collection(USERS_COLLECTION).findOne({_id: new ObjectID(userId)}, function (err, user) {
+      if (err) {
+        return res.status(401).end()
+      } else {
+        req.user = user;
+        return next()
+      }
+    });
 
-    req.user = user*/
-    console.log(userId);
-    return next()
   })
 }

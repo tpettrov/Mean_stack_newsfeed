@@ -5,8 +5,9 @@
 <p>{{article.content}}</p>
 
 <hr>
+<h5>Comments below:</h5>
 <div *ngIf="comments"><p *ngFor="let comment of comments">
-  {{comment}}
+  <b>{{comment.content}}</b> by <i>{{comment.author}}</i>
 </p></div>
 <div class="col-md-4 col-md-offset-4">
 <form #commentForm="ngForm" (submit)="addComment()">

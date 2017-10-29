@@ -28,7 +28,10 @@ module.exports = {
   },
   addComment: (req, res) => {
       const articleId = req.params.articleId;
-      const comment = req.body.content;
+      let comment = {};
+        comment.content = req.body.content;
+      comment.author = req.user.name;
+      console.log(comment);
 
       mongoUtil.getDb().collection(ARTICLES_COLLECTION).updateOne({_id: new ObjectID(articleId)},
         {$push: { "comments" : comment }}, function (err,doc){

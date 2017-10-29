@@ -6,6 +6,7 @@ import {ArticleService} from "./article.service";
 import { ArticleCreateComponent } from './article-create/article-create.component';
 import {FormsModule} from "@angular/forms";
 import {ArticleDetailsComponent} from "./article-details/article-details.component";
+import {ShareArticleService} from "./share-artice.service";
 
 @NgModule({
   imports: [
@@ -13,6 +14,6 @@ import {ArticleDetailsComponent} from "./article-details/article-details.compone
   ],
   declarations: [ArticleListComponent, ArticleCreateComponent, ArticleDetailsComponent],
   exports: [ArticleListComponent],
-  providers: [ArticleService]
+  providers: [ArticleService, ShareArticleService]
 })
 export class ArticlesModule { }

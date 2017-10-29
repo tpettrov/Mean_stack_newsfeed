@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Article } from '../article';
 import { ArticleService } from '../article.service';
-
+import {ShareArticleService} from "../share-artice.service";
 
 
 @Component({
@@ -12,7 +12,7 @@ import { ArticleService } from '../article.service';
 })
 export class ArticleListComponent implements OnInit {
 
-  constructor(private articleService: ArticleService) { }
+  constructor(private articleService: ArticleService, private shareArticle: ShareArticleService) { }
 
   articles: Article[];
   selectedArticle: Article;
@@ -29,6 +29,7 @@ export class ArticleListComponent implements OnInit {
   }
   selectArticle(article){
     this.selectedArticle = article;
+    this.shareArticle.articleShared = article;
   }
 
 }

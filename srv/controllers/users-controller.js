@@ -52,7 +52,7 @@ module.exports = {
 
     db.collection(USERS_COLLECTION).findOne({email: wannaBeUser.email}, function (err, doc) {
       if (doc === null) {
-        res.status(401).json({success: false, msg: 'Unvalid credentials!'});
+        res.status(201).json({success: false, msg: 'Unvalid credentials!'});
       } else {
         if (encryption.generateHashedPassword(doc.salt, wannaBeUser.password) === doc.password) {
           const token = jwt.sign({sub: doc._id}, 'extremelY private String Unreadable by third party or dummy guys1');
@@ -63,7 +63,7 @@ module.exports = {
             user: doc.name
           });
         } else {
-          res.status(401).json({success: false, msg: 'Unvalid credentials!'});
+          res.status(201).json({success: false, msg: 'Unvalid credentials!'});
         }
       }
     });

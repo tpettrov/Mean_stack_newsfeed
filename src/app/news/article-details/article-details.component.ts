@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ShareArticleService} from "../share-artice.service";
-import {Router} from "@angular/router";
-import {isUndefined} from "util";
+import {Router, ActivatedRoute} from "@angular/router";
 import {ArticleService} from "../article.service";
-
+import {Article} from "../article";
+import {FlashMessagesService} from "angular2-flash-messages";
 
 @Component({
   selector: 'app-new-details',
@@ -12,19 +11,23 @@ import {ArticleService} from "../article.service";
 })
 export class ArticleDetailsComponent implements OnInit{
 
-  constructor(private sharedArticle: ShareArticleService,
-              private router: Router,
-              private articleService: ArticleService) {}
+  constructor(private router: Router,
+              private articleService: ArticleService,
+              private activatedRoute: ActivatedRoute,
+              private flashMessage: FlashMessagesService) {}
 
-  article = this.sharedArticle.articleShared;
+  article: Article;
   newComment: string;
   comments: Array<string>;
 
   ngOnInit(){
-    if (isUndefined(this.article)) {
-      this.router.navigateByUrl('/');
-    }
-    this.comments = this.sharedArticle.articleShared.comments;
+    this.activatedRoute.params.subscribe((params) => {
+      const id = params['id'];
+      this.articleService.getArticle(id).subscribe((article) => {
+        this.article = article;
+        this.comments = article.comments;
+      })
+    })
   }
 
   addComment(){
@@ -32,8 +35,8 @@ export class ArticleDetailsComponent implements OnInit{
       if (!res.success) {
         console.log(res);
       } else {
-        this.comments.push(this.newComment);
-        console.log('Добавен коментар');
+        this.ngOnInit();
+        this.flashMessage.show('Comment added successfully!', { cssClass: 'alert-success' });
       }
     });
   }

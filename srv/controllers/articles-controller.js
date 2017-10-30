@@ -9,10 +9,22 @@ module.exports = {
       if (err) {
         handleError(res, err.message, "Failed to get news.");
       } else {
+        res.status(200).json({articles: docs, success:true});
+      }
+    });
+  },
+
+  getArticle: (req, res) => {
+    const articleId = req.params.articleId
+    mongoUtil.getDb().collection(ARTICLES_COLLECTION).findOne({_id: new ObjectID(articleId)}, function (err, docs) {
+      if (err) {
+        handleError(res, err.message, "Failed to get news.");
+      } else {
         res.status(200).json(docs);
       }
     });
   },
+
   createArticle: (req, res) => {
 
     let newArticle = req.body;

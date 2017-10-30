@@ -12,6 +12,10 @@ export class ArticleService {
     return this.httpService.get('api/articles');
   }
 
+  getArticle(articleId) {
+    return this.httpService.get(`api/articles/${articleId}`);
+  }
+
   postArticle(newArticle){
     return this.httpService.post('api/articles', newArticle, true)
   }

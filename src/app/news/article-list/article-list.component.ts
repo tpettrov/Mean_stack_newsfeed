@@ -24,7 +24,7 @@ export class ArticleListComponent implements OnInit {
         if (!res.success) {
           console.log(res.msg);
         }
-         this.articles = res;
+         this.articles = res.articles;
         });
   }
   selectArticle(article){

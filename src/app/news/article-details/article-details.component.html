@@ -1,8 +1,8 @@
-<h3>
+<h3 *ngIf="article">
   {{article.title}}
 </h3>
 <hr>
-<p>{{article.content}}</p>
+<p *ngIf="article">{{article.content}}</p>
 
 <hr>
 <h5>Comments below:</h5>

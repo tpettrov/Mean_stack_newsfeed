@@ -7,7 +7,7 @@
           (click)="selectArticle(article)"
           [class.active]="article === selectedArticle">
         {{article.title}}
-        <a routerLink="/article/detailed" (click)="selectArticle(article)"><span class="pull-right btn btn-info">Details</span></a>
+        <a routerLink="/article/detailed/{{article._id}}" (click)="selectArticle(article)"><span class="pull-right btn btn-info">Details</span></a>
         <div *ngIf = "article === selectedArticle">{{article.content}}</div>
       </li>
     </ul>

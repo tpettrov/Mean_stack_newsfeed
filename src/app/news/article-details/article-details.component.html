@@ -9,10 +9,10 @@
 <div *ngIf="comments"><p *ngFor="let comment of comments">
   <b>{{comment.content}}</b> by <i>{{comment.author}}</i>
 </p></div>
-<div class="col-md-4 col-md-offset-4">
+<div *ngIf="authenticated" class="col-md-4 col-md-offset-4">
 <form #commentForm="ngForm" (submit)="addComment()">
 
-  <div *ngIf="authenticated" class="form-group">
+  <div  class="form-group">
     <label for="comment">Comment</label>
     <textarea
       class="form-control"

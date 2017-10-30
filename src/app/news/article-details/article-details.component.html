@@ -12,7 +12,7 @@
 <div class="col-md-4 col-md-offset-4">
 <form #commentForm="ngForm" (submit)="addComment()">
 
-  <div class="form-group">
+  <div *ngIf="authenticated" class="form-group">
     <label for="comment">Comment</label>
     <textarea
       class="form-control"

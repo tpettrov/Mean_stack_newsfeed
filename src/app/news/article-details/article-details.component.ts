@@ -3,6 +3,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {ArticleService} from "../article.service";
 import {Article} from "../article";
 import {FlashMessagesService} from "angular2-flash-messages";
+import {AuthService} from "../../common/auth.service";
 
 @Component({
   selector: 'app-new-details',
@@ -14,11 +15,13 @@ export class ArticleDetailsComponent implements OnInit{
   constructor(private router: Router,
               private articleService: ArticleService,
               private activatedRoute: ActivatedRoute,
-              private flashMessage: FlashMessagesService) {}
+              private flashMessage: FlashMessagesService,
+              private authentication: AuthService) {}
 
   article: Article;
   newComment: string;
   comments: Array<string>;
+  authenticated = this.authentication.isUserAuthenticated();
 
   ngOnInit(){
     this.activatedRoute.params.subscribe((params) => {

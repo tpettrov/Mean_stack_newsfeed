@@ -16,13 +16,13 @@ export class ArticleService {
     return this.httpService.get(`api/articles/${articleId}`);
   }
 
-  postArticle(newArticle){
-    return this.httpService.post('api/articles', newArticle, true)
+  postArticle(newArticle) {
+    return this.httpService.post('api/articles', newArticle, true);
   }
 
-  addComment(articleId, newComment){
+  addComment(articleId, newComment) {
     const commentData = {content: newComment};
-    return this.httpService.post(`api/articles/${articleId}/addComment`, commentData, true)
+    return this.httpService.post(`api/articles/${articleId}/addComment`, commentData, true);
   }
 
   /*private handleError (error: any) {

@@ -28,15 +28,19 @@ module.exports = {
   createArticle: (req, res) => {
 
     let newArticle = req.body;
-    newArticle.comments = new Array();
+    if (newArticle.content.length > 100) {
+      return res.status(200).json({success: false, msg: 'Article too long'});
+    } else {
+      newArticle.comments = new Array();
 
-    mongoUtil.getDb().collection(ARTICLES_COLLECTION).insertOne(newArticle, function (err, docs) {
-      if (err) {
-        handleError(res, err.message, "Failed to get news.");
-      } else {
-        res.status(200).json(docs);
-      }
-    });
+      mongoUtil.getDb().collection(ARTICLES_COLLECTION).insertOne(newArticle, function (err, docs) {
+        if (err) {
+          handleError(res, err.message, "Failed to get news.");
+        } else {
+          res.status(200).json(docs);
+        }
+      });
+    }
   },
   addComment: (req, res) => {
       const articleId = req.params.articleId;

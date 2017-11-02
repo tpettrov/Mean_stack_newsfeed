@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router, ActivatedRoute} from "@angular/router";
 import {ArticleService} from "../article.service";
 import {Article} from "../article";
@@ -10,20 +10,21 @@ import {AuthService} from "../../common/auth.service";
   templateUrl: './article-details.component.html',
   styleUrls: ['./article-details.component.css'],
 })
-export class ArticleDetailsComponent implements OnInit{
+export class ArticleDetailsComponent implements OnInit {
 
   constructor(private router: Router,
               private articleService: ArticleService,
               private activatedRoute: ActivatedRoute,
               private flashMessage: FlashMessagesService,
-              private authentication: AuthService) {}
+              private authentication: AuthService) {
+  }
 
   article: Article;
   newComment: string;
-  comments: Array<string>;
+  comments = new Array();
   authenticated = this.authentication.isUserAuthenticated();
 
-  ngOnInit(){
+  ngOnInit() {
     this.activatedRoute.params.subscribe((params) => {
       const id = params['id'];
       this.articleService.getArticle(id).subscribe((article) => {
@@ -33,13 +34,13 @@ export class ArticleDetailsComponent implements OnInit{
     })
   }
 
-  addComment(){
+  addComment() {
     this.articleService.addComment(this.article._id, this.newComment).subscribe((res) => {
       if (!res.success) {
         console.log(res);
       } else {
         this.ngOnInit();
-        this.flashMessage.show('Comment added successfully!', { cssClass: 'alert-success' });
+        this.flashMessage.show('Comment added successfully!', {cssClass: 'alert-success'});
       }
     });
   }

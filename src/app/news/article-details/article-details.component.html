@@ -5,10 +5,12 @@
 <p *ngIf="article">{{article.content}}</p>
 
 <hr>
-<h5>Comments below:</h5>
-<div *ngIf="comments"><p *ngFor="let comment of comments">
+<h5 *ngIf="comments.length > 0; else nocomments" >Comments below:</h5>
+<ng-template #nocomments> No comments for this thread !</ng-template>
+<div><p *ngFor="let comment of comments">
   <b>{{comment.content}}</b> by <i>{{comment.author}}</i>
 </p></div>
+
 <div *ngIf="authenticated" class="col-md-4 col-md-offset-4">
 <form #commentForm="ngForm" (submit)="addComment()">
 
